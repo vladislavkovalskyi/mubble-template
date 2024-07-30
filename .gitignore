@@ -1,0 +1,6 @@
+.git
+.DS_STORE
+.env
+__pycache__
+poetry.lock
+db.*

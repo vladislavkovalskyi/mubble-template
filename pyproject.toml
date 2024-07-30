@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "mubble-template"
+version = "0.1.0"
+description = "Template for projects based on mubble framework"
+authors = ["vladislavkovalskyi <v.darknesssb@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+mubble = "^1.2.3"
+envparse = "^0.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
