@@ -1,14 +1,20 @@
 import os
+import sys
 import importlib
 
 dps = []
+directory = "src/commands"
 
-commands_path = os.path.dirname(__file__)
-
-for filename in os.listdir(commands_path):
-    if filename.endswith(".py") and filename != "__init__.py":
-        module_name = filename[:-3]
-        module_full_name = f"src.commands.{module_name}"
-        module = importlib.import_module(module_full_name)
-        if hasattr(module, "dp"):
-            dps.append(module.dp)
+for root, dirs, files in os.walk(directory):
+    for file in files:
+        if file.endswith(".py") and file != "__init__.py":
+            module_path = os.path.join(root, file)
+            module_name = os.path.splitext(os.path.relpath(module_path, directory))[
+                0
+            ].replace(os.sep, ".")
+            spec = importlib.util.spec_from_file_location(module_name, module_path)
+            module = importlib.util.module_from_spec(spec)
+            sys.modules[module_name] = module
+            spec.loader.exec_module(module)
+            if hasattr(module, "dp"):
+                dps.append(module.dp)
